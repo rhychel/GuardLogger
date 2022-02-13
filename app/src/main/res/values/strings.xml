@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">GuardLogger</string>
+    <string name="employee_id">Employee ID</string>
+    <string name="pin">PIN</string>
+    <string name="guard_logger">Guard Logger</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_up_header">Sign Up</string>
+    <string name="close">Close</string>
+    <string name="full_name">Full Name</string>
 </resources>

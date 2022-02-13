@@ -2,18 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rhymartmanchus.guardlogger">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
+        android:name=".GuardLoggerApplication"
+        android:fullBackupOnly="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GuardLogger"
-        android:name=".GuardLoggerApplication">
+        android:theme="@style/Theme.GuardLogger">
         <activity
-            android:name=".MainActivity"
+            android:name=".screens.home.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.login.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
