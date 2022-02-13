@@ -12,6 +12,6 @@ data class WeatherRaw (
     @SerializedName("description")
     val description: String,
 
-    @SerializedName("iconCode")
+    @SerializedName("icon")
     val iconCode: String
 )

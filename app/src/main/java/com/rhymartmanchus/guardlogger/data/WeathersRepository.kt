@@ -1,5 +1,6 @@
 package com.rhymartmanchus.guardlogger.data
 
+import com.rhymartmanchus.guardlogger.Constants
 import com.rhymartmanchus.guardlogger.data.api.OpenWeatherEndpoints
 import com.rhymartmanchus.guardlogger.domain.WeathersGateway
 import com.rhymartmanchus.guardlogger.domain.models.Weather
@@ -15,7 +16,7 @@ class WeathersRepository @Inject constructor(
             .fetchCurrentWeather(
                 latitude,
                 longitude,
-                "ef179075dd06b7dfe4cdfa6ee094104d"
+                Constants.API_TOKEN
             )
             .let {
                 Weather(

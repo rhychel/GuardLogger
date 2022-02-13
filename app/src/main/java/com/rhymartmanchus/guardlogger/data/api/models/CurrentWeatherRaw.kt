@@ -6,13 +6,13 @@ data class CurrentWeatherRaw (
     @SerializedName("name")
     val cityName: String,
 
-    @SerializedName("temperature")
+    @SerializedName("temp")
     val temperature: Double,
 
-    @SerializedName("minimumTemperature")
+    @SerializedName("temp_min")
     val minimumTemperature: Double,
 
-    @SerializedName("maximumTemperature")
+    @SerializedName("temp_max")
     val maximumTemperature: Double,
 
     @SerializedName("cloudsPercentage")
