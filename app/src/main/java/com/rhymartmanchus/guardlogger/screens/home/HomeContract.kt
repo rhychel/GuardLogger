@@ -1,5 +1,6 @@
 package com.rhymartmanchus.guardlogger.screens.home
 
+import android.location.Location
 import com.rhymartmanchus.guardlogger.domain.models.Weather
 
 sealed interface HomeContract {
@@ -10,17 +11,29 @@ sealed interface HomeContract {
             weather: Weather
         )
 
+        fun requestLocationPermission()
+        fun getCurrentLocation()
+        fun showNeedsLocationPermission()
+        suspend fun showCreateRoutePlan(
+            onYesClicked: suspend () -> Unit
+        )
+
+        fun navigateToRoutePlan()
+        fun navigateToLogBook()
+
+        fun toastError(message: String)
     }
 
     interface Presenter {
 
+        fun takeView(view: View)
+        fun onCurrentLocationGathered(location: Location)
         fun onViewCreated()
-        fun onCurrentLocationDetermined(
-            latitude: Double,
-            longitude: Double
-        )
         fun onRoutePlanClicked()
         fun onLogBookClicked()
+        fun onRequestLocationPermitted()
+        fun onShouldRequestLocationPermission()
+        fun detachView()
 
     }
 

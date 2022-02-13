@@ -71,6 +71,12 @@ dependencies {
     testImplementation "androidx.room:room-testing:2.4.1"
 
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
+
+    implementation 'eu.davidea:flexible-adapter:5.1.0'
+    implementation 'eu.davidea:flexible-adapter-ui:1.0.0'
 }
 
 kapt {
