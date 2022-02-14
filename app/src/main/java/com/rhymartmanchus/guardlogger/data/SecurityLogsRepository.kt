@@ -74,9 +74,14 @@ class SecurityLogsRepository @Inject constructor(
 
     override suspend fun saveRoutePlan(routePlanRequests: RoutePlanRequests): Int {
         when(routePlanRequests) {
-            is RoutePlanRequests.ArrangeRouteLocation -> {
-                patrolLocationsDao.savePatrolLocationSorting(routePlanRequests.fromPatrolLocationId, routePlanRequests.fromSorting)
-                patrolLocationsDao.savePatrolLocationSorting(routePlanRequests.toPatrolLocationId, routePlanRequests.toSorting)
+            is RoutePlanRequests.SaveArrangementLocation -> {
+                val patrolLocation = patrolLocationsDao.getPatrolLocationById(routePlanRequests.patrolLocationId)
+                    ?: throw NoDataException()
+                patrolLocationsDao.savePartolLocationLog(
+                    patrolLocation.copy(
+                        sorting = routePlanRequests.sorting
+                    )
+                )
             }
             is RoutePlanRequests.Create -> {
                 routePlansDao.saveRoutePlan(

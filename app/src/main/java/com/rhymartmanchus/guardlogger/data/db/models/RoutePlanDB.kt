@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
     tableName = "route_plans"
 )
 data class RoutePlanDB (
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int,
 

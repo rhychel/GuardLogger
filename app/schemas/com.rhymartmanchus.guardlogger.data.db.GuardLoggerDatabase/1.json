@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "65ee342bd7ba57c04807c527e4242fa5",
+    "identityHash": "1d6245c07e6ad161c3d6b905a3b2e30d",
     "entities": [
       {
         "tableName": "area_locations",
@@ -156,7 +156,7 @@
       },
       {
         "tableName": "route_plans",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `hasStarted` INTEGER NOT NULL, `isDone` INTEGER NOT NULL, `startTime` TEXT NOT NULL, `endTime` TEXT NOT NULL, `userId` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `hasStarted` INTEGER NOT NULL, `isDone` INTEGER NOT NULL, `startTime` TEXT NOT NULL, `endTime` TEXT NOT NULL, `userId` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -199,7 +199,7 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -246,7 +246,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '65ee342bd7ba57c04807c527e4242fa5')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1d6245c07e6ad161c3d6b905a3b2e30d')"
     ]
   }
 }

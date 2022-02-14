@@ -9,7 +9,7 @@ interface PatrolLocationsDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun savePatrolLocations(patrolLocations: List<PatrolLocationDB>)
 
-    @Update(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun savePartolLocationLog(patrolLocationDB: PatrolLocationDB)
 
     @Query("UPDATE patrol_locations SET sorting = :sorting WHERE id = :patrolLocationId")

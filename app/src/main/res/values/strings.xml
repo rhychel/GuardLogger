@@ -17,4 +17,8 @@
     <string name="no_logs_available_yet">No logs available yet</string>
     <string name="log_details">Log Details</string>
     <string name="logged_by">Logged by: %s</string>
+    <string name="reset">Reset</string>
+    <string name="start">Start</string>
+    <string name="finish">Finish</string>
+    <string name="is_location_cleared">Is Location Cleared</string>
 </resources>

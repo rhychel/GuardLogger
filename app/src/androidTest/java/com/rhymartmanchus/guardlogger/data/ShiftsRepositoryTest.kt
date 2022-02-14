@@ -64,6 +64,7 @@ class ShiftsRepositoryTest {
 
     @Test(expected = IllegalStateException::class)
     fun throwIllegalStateExceptionWhenNameIsEmpty() = runBlocking {
+        sharedPreferences.edit().apply()
         sharedPreferences.edit()
             .putInt("USER_ID", 1)
             .commit()

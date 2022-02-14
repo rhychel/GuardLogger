@@ -8,14 +8,23 @@ sealed interface RoutePlanContract {
 
     interface View {
 
-        fun showEndRoutePlanButton()
+        fun toastRoutePlanIsCompleted()
+        fun navigateToHome()
+        fun showFinishButton()
+        fun refreshLocations(
+            hasStarted: Boolean, locations: List<PatrolLocation>
+        )
         fun renderRoutePlan(
-            routePlan: RoutePlan
+            routePlan: RoutePlan, locations: List<PatrolLocation>
+        )
+        fun resetRoutePlanLocations(
+            locations: List<PatrolLocation>
         )
         suspend fun showPatrolLogDialog(
-            onSaveClicked: (RoutePlanRequests.SaveLog) -> Unit,
-            onDismissClicked: () -> Unit
+            locationName: String,
+            onSaveClicked: suspend (startTime: String, endTime: String, isCleared: Boolean, logs: String) -> Unit
         )
+        fun refreshPatrolLocation(patrolLocation: PatrolLocation)
 
     }
 

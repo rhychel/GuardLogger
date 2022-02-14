@@ -163,18 +163,6 @@ class SecurityLogsRepositoryTest {
         patrolLocationsDao.savePatrolLocations(
             listOf(
                 PatrolLocationDB(
-                    4,
-                    2,
-                    3,
-                    "Phelan Building",
-                    "",
-                    "",
-                    false,
-                    false,
-                    ".",
-                    ""
-                ),
-                PatrolLocationDB(
                     5,
                     2,
                     2,
@@ -190,8 +178,8 @@ class SecurityLogsRepositoryTest {
         )
 
         securityLogsRepository.saveRoutePlan(
-            RoutePlanRequests.ArrangeRouteLocation(
-                5, ".", 4, ".."
+            RoutePlanRequests.SaveArrangementLocation(
+                5, "."
             )
         )
 
@@ -199,8 +187,6 @@ class SecurityLogsRepositoryTest {
 
         assertEquals(".",
             routePlan?.patrolLocations?.find { it.id == 5 }?.sorting)
-        assertEquals("..",
-            routePlan?.patrolLocations?.find { it.id == 4 }?.sorting)
     }
 
     @Test

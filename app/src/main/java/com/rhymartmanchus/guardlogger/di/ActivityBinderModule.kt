@@ -6,6 +6,8 @@ import com.rhymartmanchus.guardlogger.screens.logbook.LogBookContract
 import com.rhymartmanchus.guardlogger.screens.logbook.LogBookPresenter
 import com.rhymartmanchus.guardlogger.screens.login.MainContract
 import com.rhymartmanchus.guardlogger.screens.login.MainPresenter
+import com.rhymartmanchus.guardlogger.screens.routeplan.RoutePlanContract
+import com.rhymartmanchus.guardlogger.screens.routeplan.RoutePlanPresenter
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -29,5 +31,10 @@ abstract class ActivityBinderModule {
     abstract fun provideLogBookPresenter(
         logBookPresenter: LogBookPresenter
     ): LogBookContract.Presenter
+
+    @Binds
+    abstract fun provideRoutePlanPresenter(
+        routePlanPresenter: RoutePlanPresenter
+    ): RoutePlanContract.Presenter
 
 }

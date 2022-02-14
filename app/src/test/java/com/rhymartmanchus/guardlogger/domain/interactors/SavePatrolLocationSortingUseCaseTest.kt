@@ -34,29 +34,19 @@ class SavePatrolLocationSortingUseCaseTest {
         useCase.execute(
             SavePatrolLocationSortingUseCase.Params(
                 1234,
-                "1.1.",
-                543,
-                "1.1.1."
+                ".."
             )
         )
 
-        val captor = slot<RoutePlanRequests.ArrangeRouteLocation>()
+        val captor = slot<RoutePlanRequests.SaveArrangementLocation>()
         coVerify { gateway.saveRoutePlan(capture(captor)) }
         assertEquals(
             1234,
-            captor.captured.fromPatrolLocationId
+            captor.captured.patrolLocationId
         )
         assertEquals(
-            "1.1.",
-            captor.captured.fromSorting
-        )
-        assertEquals(
-            543,
-            captor.captured.toPatrolLocationId
-        )
-        assertEquals(
-            "1.1.1.",
-            captor.captured.toSorting
+            "..",
+            captor.captured.sorting
         )
     }
 }

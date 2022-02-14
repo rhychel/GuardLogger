@@ -24,11 +24,9 @@ sealed interface RoutePlanRequests {
         val patrolLocations: List<PatrolLocation>
     ) : RoutePlanRequests
 
-    data class ArrangeRouteLocation(
-        val fromPatrolLocationId: Int,
-        val fromSorting: String,
-        val toPatrolLocationId: Int,
-        val toSorting: String
+    data class SaveArrangementLocation(
+        val patrolLocationId: Int,
+        val sorting: String
     ) : RoutePlanRequests
 
     data class SaveLog(

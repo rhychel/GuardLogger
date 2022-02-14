@@ -10,4 +10,9 @@ data class PatrolLocation (
     val isVisited: Boolean,
     val isCleared: Boolean,
     val remarks: String?
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        other as PatrolLocation
+        return other.id == id
+    }
+}
