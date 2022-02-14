@@ -10,21 +10,26 @@ sealed interface LogBookContract {
         fun showLogDetailsDialog(
             checkInLog: CheckInLog
         )
-        suspend fun showAddLogDialog(
-            onSaveClicked: (CheckInRequest) -> Unit,
-            onDismissClicked: () -> Unit
+        fun showAddLogDialog(
+            onSaveClicked: suspend (startTime: String, endTime: String, logs: String) -> Unit
         )
         fun renderCheckInLogs(
             checkInLogs: List<CheckInLog>
+        )
+        fun hideNoLogsAvailable()
+        fun appendCheckInLog(
+            checkInLog: CheckInLog
         )
 
     }
 
     interface Presenter {
 
+        fun takeView(view: View)
+        fun detachView()
         fun onViewCreated()
         fun onAddLogClicked()
-        fun onLogClicked(logId: Int)
+        fun onLogClicked(position: Int)
 
     }
 

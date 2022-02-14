@@ -2,6 +2,8 @@ package com.rhymartmanchus.guardlogger.di
 
 import com.rhymartmanchus.guardlogger.screens.home.HomeContract
 import com.rhymartmanchus.guardlogger.screens.home.HomePresenter
+import com.rhymartmanchus.guardlogger.screens.logbook.LogBookContract
+import com.rhymartmanchus.guardlogger.screens.logbook.LogBookPresenter
 import com.rhymartmanchus.guardlogger.screens.login.MainContract
 import com.rhymartmanchus.guardlogger.screens.login.MainPresenter
 import dagger.Binds
@@ -22,5 +24,10 @@ abstract class ActivityBinderModule {
     abstract fun provideHomePresenter(
         homePresenter: HomePresenter
     ): HomeContract.Presenter
+
+    @Binds
+    abstract fun provideLogBookPresenter(
+        logBookPresenter: LogBookPresenter
+    ): LogBookContract.Presenter
 
 }

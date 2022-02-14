@@ -6,7 +6,7 @@ sealed interface MainContract {
 
         fun renderView()
         fun navigateToHome()
-        suspend fun showSignUpDialog(
+        fun showSignUpDialog(
             onSignUpClicked: suspend (employeeId: String, name: String, pin: String) -> SignUpState
         )
         fun toastError(message: String)

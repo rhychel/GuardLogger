@@ -79,7 +79,7 @@ class HomePresenter @Inject constructor(
     }
 
     override fun onShouldRequestLocationPermission() {
-        view?.showNeedsLocationPermission()
+        view?.requestLocationPermission()
     }
 
     override fun detachView() {

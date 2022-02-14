@@ -21,6 +21,8 @@ sealed interface RoutePlanContract {
 
     interface Presenter {
 
+        fun takeView(view: View)
+        fun onViewCreated()
         fun onStartRouteClicked()
         fun onEndRouteClicked()
         fun onLocationClicked(

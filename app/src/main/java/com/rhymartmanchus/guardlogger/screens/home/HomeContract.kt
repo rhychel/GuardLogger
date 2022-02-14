@@ -14,7 +14,7 @@ sealed interface HomeContract {
         fun requestLocationPermission()
         fun getCurrentLocation()
         fun showNeedsLocationPermission()
-        suspend fun showCreateRoutePlan(
+        fun showCreateRoutePlan(
             onYesClicked: suspend () -> Unit
         )
 

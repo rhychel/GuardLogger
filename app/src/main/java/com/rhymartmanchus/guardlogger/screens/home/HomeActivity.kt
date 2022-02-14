@@ -116,7 +116,7 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, FlexibleAdapter.OnI
         Toast.makeText(this, "Weather needs location permission", Toast.LENGTH_LONG).show()
     }
 
-    override suspend fun showCreateRoutePlan(onYesClicked: suspend () -> Unit) {
+    override fun showCreateRoutePlan(onYesClicked: suspend () -> Unit) {
         AlertDialog.Builder(this)
             .setTitle("No Active Route Plan")
             .setMessage("Create a new one?")

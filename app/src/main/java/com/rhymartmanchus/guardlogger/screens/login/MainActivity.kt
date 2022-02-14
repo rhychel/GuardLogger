@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         startActivity(Intent(this, HomeActivity::class.java))
     }
 
-    override suspend fun showSignUpDialog(
+    override fun showSignUpDialog(
         onSignUpClicked: suspend (employeeId: String, name: String, pin: String) -> SignUpState
     ) {
         val dialog = SignUpDialogFragment()

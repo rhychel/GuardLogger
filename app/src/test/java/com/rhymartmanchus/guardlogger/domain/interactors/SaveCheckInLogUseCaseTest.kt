@@ -3,6 +3,7 @@ package com.rhymartmanchus.guardlogger.domain.interactors
 import com.rhymartmanchus.guardlogger.domain.SecurityLogsGateway
 import com.rhymartmanchus.guardlogger.domain.ShiftsGateway
 import com.rhymartmanchus.guardlogger.domain.exceptions.NoDataException
+import com.rhymartmanchus.guardlogger.domain.models.CheckInLog
 import com.rhymartmanchus.guardlogger.domain.models.Session
 import com.rhymartmanchus.guardlogger.domain.requests.CheckInRequest
 import io.mockk.*
@@ -38,7 +39,7 @@ class SaveCheckInLogUseCaseTest {
         coEvery { gateway.saveCheckInLog(any())
         } returns Unit
 
-        useCase.execute(
+        val result = useCase.execute(
             SaveCheckInLogUseCase.Params(
                 "Feb 12, 2022 - 11:00 AM",
                 "Feb 12, 2022 - 11:05 AM",
@@ -58,6 +59,15 @@ class SaveCheckInLogUseCaseTest {
                 "This is a description"),
             captor.captured
         )
+        assertEquals(
+            CheckInLog(
+                session.name,
+                "Feb 12, 2022 - 11:00 AM",
+                "Feb 12, 2022 - 11:05 AM",
+                "This is a description"
+            ),
+            result.checkInLog
+        )
     }
 
     @Test(expected = NoDataException::class)
@@ -73,6 +83,8 @@ class SaveCheckInLogUseCaseTest {
                 "This is a description"
             )
         )
+
+        Unit
     }
 
     @Test
