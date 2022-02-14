@@ -33,7 +33,7 @@ class ShiftsRepositoryTest {
     fun setUp() {
         val database = GuardLoggerDatabase.getInMemoryInstance(appContext)
         authenticationsDao = database.authenticationsDao()
-        sharedPreferences = appContext.getSharedPreferences("session", Context.MODE_PRIVATE)
+        sharedPreferences = appContext.getSharedPreferences("session_test", Context.MODE_PRIVATE)
 
         shiftsRepository = ShiftsRepository(
             authenticationsDao,
