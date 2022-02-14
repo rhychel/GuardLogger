@@ -2,6 +2,7 @@ package com.rhymartmanchus.guardlogger.screens.logbook
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import com.rhymartmanchus.guardlogger.R
 
 class LogBookActivity : AppCompatActivity() {
@@ -10,5 +11,13 @@ class LogBookActivity : AppCompatActivity() {
         setContentView(R.layout.activity_log_book)
 
         title = "Log Book"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
