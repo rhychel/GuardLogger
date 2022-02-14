@@ -2,13 +2,17 @@
 
 Libraries Used
 
- - Unit Test
-	 - MockK (https://mockk.io/)
-	 - JUnit4
+- Unit Test
+    - MockK (https://mockk.io/)
+	- JUnit4
 - Database
 	- Room
 - HTTP
 	- Retrofit
+
+Tests
+- Unit Tests is available
+- Integration Test is available
 
 Architecture
 - Clean Architecture
