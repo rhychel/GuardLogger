@@ -76,15 +76,10 @@ class ShiftsRepositoryTest {
 
     @Test
     fun login() = runBlocking {
-        val userId = UUID.randomUUID().toString()
-        authenticationsDao.saveUser(
-            UserDB(userId, "Rhy", "123-123", "4321")
-        )
+        val session = shiftsRepository.login("test@gmail.com", "432112")
 
-        val session = shiftsRepository.login("123-123", "4321")
-
-        assertEquals(userId, session.userId)
-        assertEquals("Rhy", session.name)
+        assertEquals("uHfxJP8FKlNq0QpGSNSSqBK4eUH3", session.userId)
+        assertEquals("Name not available", session.name)
     }
 
     @Test(expected = EmployeeNotRegisteredException::class)

@@ -9,6 +9,7 @@ import com.rhymartmanchus.guardlogger.domain.exceptions.EmployeeAlreadyRegistere
 import com.rhymartmanchus.guardlogger.domain.exceptions.EmployeeNotRegisteredException
 import com.rhymartmanchus.guardlogger.domain.exceptions.NoDataException
 import com.rhymartmanchus.guardlogger.domain.models.Session
+import kotlinx.coroutines.tasks.await
 import java.util.*
 import javax.inject.Inject
 
@@ -35,11 +36,15 @@ class ShiftsRepository @Inject constructor(
     }
 
     override suspend fun login(email: String, password: String): Session {
-        val user = authenticationsDao.authenticate(email, password)
-            ?: throw EmployeeNotRegisteredException()
+        val user = try {
+            firebaseAuth.signInWithEmailAndPassword(email, password).await()
+                .user!!
+        } catch (e: Exception) {
+            throw EmployeeNotRegisteredException(e)
+        }
         return Session(
-            user.id,
-            user.name
+            user.uid,
+            user.displayName ?: "Name not available"
         )
     }
 
