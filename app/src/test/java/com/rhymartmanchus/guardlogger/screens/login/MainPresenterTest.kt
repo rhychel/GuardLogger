@@ -74,8 +74,8 @@ class MainPresenterTest {
             loginEmployeeUseCase.execute(capture(captor))
             view.navigateToHome()
         }
-        assertEquals("1234-1234", captor.captured.employeeId)
-        assertEquals("1234", captor.captured.pin)
+        assertEquals("1234-1234", captor.captured.email)
+        assertEquals("1234", captor.captured.password)
     }
 
     @Test

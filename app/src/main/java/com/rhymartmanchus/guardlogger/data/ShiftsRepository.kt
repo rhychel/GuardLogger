@@ -1,6 +1,7 @@
 package com.rhymartmanchus.guardlogger.data
 
 import android.content.SharedPreferences
+import com.google.firebase.auth.FirebaseAuth
 import com.rhymartmanchus.guardlogger.data.db.AuthenticationsDao
 import com.rhymartmanchus.guardlogger.data.db.models.UserDB
 import com.rhymartmanchus.guardlogger.domain.ShiftsGateway
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 class ShiftsRepository @Inject constructor(
     private val authenticationsDao: AuthenticationsDao,
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val firebaseAuth: FirebaseAuth
 ) : ShiftsGateway {
 
     override suspend fun getCurrentSession(): Session {
@@ -30,8 +32,8 @@ class ShiftsRepository @Inject constructor(
         )
     }
 
-    override suspend fun login(employeeId: String, pin: String): Session {
-        val user = authenticationsDao.authenticate(employeeId, pin)
+    override suspend fun login(email: String, password: String): Session {
+        val user = authenticationsDao.authenticate(email, password)
             ?: throw EmployeeNotRegisteredException()
         return Session(
             user.id,

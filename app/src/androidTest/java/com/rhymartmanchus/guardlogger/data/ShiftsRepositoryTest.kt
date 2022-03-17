@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.google.firebase.auth.FirebaseAuth
 import com.rhymartmanchus.guardlogger.data.db.AuthenticationsDao
 import com.rhymartmanchus.guardlogger.data.db.GuardLoggerDatabase
 import com.rhymartmanchus.guardlogger.data.db.models.UserDB
@@ -13,13 +14,10 @@ import com.rhymartmanchus.guardlogger.domain.exceptions.NoDataException
 import com.rhymartmanchus.guardlogger.domain.models.Session
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Assert.*
-
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import kotlin.math.exp
-import kotlin.math.sign
 
 @RunWith(AndroidJUnit4::class)
 class ShiftsRepositoryTest {
@@ -37,7 +35,8 @@ class ShiftsRepositoryTest {
 
         shiftsRepository = ShiftsRepository(
             authenticationsDao,
-            sharedPreferences
+            sharedPreferences,
+            FirebaseAuth.getInstance()
         )
     }
 
