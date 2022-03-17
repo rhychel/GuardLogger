@@ -1,6 +1,6 @@
 package com.rhymartmanchus.guardlogger.domain.models
 
 data class Session (
-    val userId: Int,
+    val userId: String,
     val name: String
 )

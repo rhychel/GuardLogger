@@ -9,6 +9,7 @@ import com.rhymartmanchus.guardlogger.domain.exceptions.EmployeeAlreadyRegistere
 import com.rhymartmanchus.guardlogger.domain.exceptions.EmployeeNotRegisteredException
 import com.rhymartmanchus.guardlogger.domain.exceptions.NoDataException
 import com.rhymartmanchus.guardlogger.domain.models.Session
+import java.util.*
 import javax.inject.Inject
 
 class ShiftsRepository @Inject constructor(
@@ -18,9 +19,10 @@ class ShiftsRepository @Inject constructor(
 ) : ShiftsGateway {
 
     override suspend fun getCurrentSession(): Session {
-        val userId = sharedPreferences.getInt("USER_ID", -1)
-        if(userId == -1) {
-            throw NoDataException()
+        val userId = sharedPreferences.getString("USER_ID", "")
+            ?: throw IllegalStateException("USER_ID is empty")
+        if(userId.isEmpty()) {
+            throw IllegalStateException("USER_ID is empty")
         }
         val name = sharedPreferences.getString("NAME", "")
             ?: throw IllegalStateException("NAME is empty")
@@ -46,7 +48,7 @@ class ShiftsRepository @Inject constructor(
         if(user == null) {
             authenticationsDao.saveUser(
                 UserDB(
-                    0,
+                    UUID.randomUUID().toString(),
                     name, employeeId, pin
                 )
             )
@@ -58,7 +60,7 @@ class ShiftsRepository @Inject constructor(
     override suspend fun saveSession(session: Session) {
         sharedPreferences.edit()
             .putString("NAME", session.name)
-            .putInt("USER_ID", session.userId)
+            .putString("USER_ID", session.userId)
             .commit()
     }
 

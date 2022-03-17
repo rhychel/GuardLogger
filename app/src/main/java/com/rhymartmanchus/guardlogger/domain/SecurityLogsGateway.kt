@@ -9,7 +9,7 @@ import com.rhymartmanchus.guardlogger.domain.requests.RoutePlanRequests
 interface SecurityLogsGateway {
 
     suspend fun getCheckInLogs(): List<CheckInLog>
-    suspend fun getPatrolRoutePlan(userId: Int): RoutePlan
+    suspend fun getPatrolRoutePlan(userId: String): RoutePlan
     suspend fun getLocations(): List<AreaLocation>
 
     suspend fun saveRoutePlan(routePlanRequests: RoutePlanRequests): Int

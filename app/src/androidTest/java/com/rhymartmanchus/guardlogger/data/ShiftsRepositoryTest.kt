@@ -18,6 +18,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 class ShiftsRepositoryTest {
@@ -44,17 +45,17 @@ class ShiftsRepositoryTest {
     fun getCurrentSession() = runBlocking {
         sharedPreferences.edit()
             .putString("NAME", "rhy")
-            .putInt("USER_ID", 1)
+            .putString("USER_ID", "1")
             .commit()
 
         val session = shiftsRepository.getCurrentSession()
 
         assertEquals("rhy", session.name)
-        assertEquals(1, session.userId)
+        assertEquals("1", session.userId)
     }
 
-    @Test(expected = NoDataException::class)
-    fun throwNoDataExceptionWhenThereIsNoSession() = runBlocking {
+    @Test(expected = IllegalStateException::class)
+    fun throwIllegalStateExceptionWhenThereIsNoSession() = runBlocking {
 
         shiftsRepository.getCurrentSession()
 
@@ -65,7 +66,7 @@ class ShiftsRepositoryTest {
     fun throwIllegalStateExceptionWhenNameIsEmpty() = runBlocking {
         sharedPreferences.edit().apply()
         sharedPreferences.edit()
-            .putInt("USER_ID", 1)
+            .putString("USER_ID", "1")
             .commit()
 
         shiftsRepository.getCurrentSession()
@@ -75,13 +76,14 @@ class ShiftsRepositoryTest {
 
     @Test
     fun login() = runBlocking {
+        val userId = UUID.randomUUID().toString()
         authenticationsDao.saveUser(
-            UserDB(1, "Rhy", "123-123", "4321")
+            UserDB(userId, "Rhy", "123-123", "4321")
         )
 
         val session = shiftsRepository.login("123-123", "4321")
 
-        assertEquals(1, session.userId)
+        assertEquals(userId, session.userId)
         assertEquals("Rhy", session.name)
     }
 
@@ -107,8 +109,9 @@ class ShiftsRepositoryTest {
     @Test(expected = EmployeeAlreadyRegisteredException::class)
     fun throwEmployeeAlreadyRegisteredExceptionWhenItAlreadyExists() = runBlocking {
 
+        val userId = UUID.randomUUID().toString()
         authenticationsDao.saveUser(
-            UserDB(0, "Mich", "1234-1234", "1234")
+            UserDB(userId, "Mich", "1234-1234", "1234")
         )
 
         shiftsRepository.signup("1234-1234", "Mich", "1234")
@@ -117,13 +120,14 @@ class ShiftsRepositoryTest {
     @Test
     fun saveSession() = runBlocking {
 
+        val userId = UUID.randomUUID().toString()
         shiftsRepository.saveSession(
-            Session(123, "Gab")
+            Session(userId, "Gab")
         )
 
         val session = shiftsRepository.getCurrentSession()
 
-        assertEquals(123, session.userId)
+        assertEquals(userId, session.userId)
         assertEquals("Gab", session.name)
     }
 

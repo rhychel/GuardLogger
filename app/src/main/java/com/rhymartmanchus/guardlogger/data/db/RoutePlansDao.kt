@@ -9,10 +9,10 @@ interface RoutePlansDao {
 
     @Transaction
     @Query("SELECT * FROM route_plans WHERE userId = :userId AND isDone = 0")
-    suspend fun getRoutePlanWithPatrolLocations(userId: Int): RoutePlanWithPatrolLocationsDB?
+    suspend fun getRoutePlanWithPatrolLocations(userId: String): RoutePlanWithPatrolLocationsDB?
 
     @Query("SELECT * FROM route_plans WHERE userId = :id AND isDone = 0")
-    suspend fun getRoutePlanByUserId(id: Int): RoutePlanDB?
+    suspend fun getRoutePlanByUserId(id: String): RoutePlanDB?
 
     @Query("SELECT * FROM route_plans WHERE id = :id")
     suspend fun getRoutePlanById(id: Int): RoutePlanDB?

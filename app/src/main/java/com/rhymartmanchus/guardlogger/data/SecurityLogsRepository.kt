@@ -36,7 +36,7 @@ class SecurityLogsRepository @Inject constructor(
             }
             .takeIf { it.isNotEmpty() } ?: throw NoDataException()
 
-    override suspend fun getPatrolRoutePlan(userId: Int): RoutePlan =
+    override suspend fun getPatrolRoutePlan(userId: String): RoutePlan =
         routePlansDao.getRoutePlanWithPatrolLocations(userId)
             ?.let {
                 RoutePlan(

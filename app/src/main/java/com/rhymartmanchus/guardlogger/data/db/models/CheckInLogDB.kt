@@ -14,7 +14,7 @@ data class CheckInLogDB (
     val id: Int,
 
     @ColumnInfo(name = "userId")
-    val userId: Int,
+    val userId: String,
 
     @ColumnInfo(name = "startTime")
     val startTime: String,
