@@ -37,5 +37,6 @@ App Screens
 For future development:
 - Logout feature
 - Duty feature
+- Upload photo
 
 > Written with [StackEdit](https://stackedit.io/).
