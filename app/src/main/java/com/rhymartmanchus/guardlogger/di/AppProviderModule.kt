@@ -2,6 +2,9 @@ package com.rhymartmanchus.guardlogger.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.google.gson.GsonBuilder
 import com.rhymartmanchus.guardlogger.Constants
 import com.rhymartmanchus.guardlogger.data.api.CurrentWeatherSerializer
@@ -52,7 +55,7 @@ object AppProviderModule {
         context.getSharedPreferences("session", Context.MODE_PRIVATE)
 
     @Provides
-    fun providerRetrofit(): Retrofit =
+    fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
             .addConverterFactory(
                 GsonConverterFactory.create(
@@ -63,5 +66,9 @@ object AppProviderModule {
             )
             .baseUrl(Constants.API_DOMAIN)
             .build()
+
+    @Provides
+    fun provideFirebaseAuth(): FirebaseAuth =
+        Firebase.auth
 
 }

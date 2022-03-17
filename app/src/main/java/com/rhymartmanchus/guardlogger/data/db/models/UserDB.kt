@@ -8,9 +8,9 @@ import androidx.room.PrimaryKey
     tableName = "users"
 )
 data class UserDB (
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: String,
 
     @ColumnInfo(name = "name")
     val name: String,

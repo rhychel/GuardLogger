@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "107062803076",
+    "project_id": "security-logs-2cdaf",
+    "storage_bucket": "security-logs-2cdaf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107062803076:android:b159e5dfd45a5b31a320d1",
+        "android_client_info": {
+          "package_name": "com.rhymartmanchus.guardlogger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107062803076-h95j573te6433lf1qoro3vusrfl030ig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN3H0GphtVxu_nZEAvxPsmu_I0Gq80WGY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107062803076-h95j573te6433lf1qoro3vusrfl030ig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

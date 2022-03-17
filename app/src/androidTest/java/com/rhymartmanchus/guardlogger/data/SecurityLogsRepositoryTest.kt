@@ -47,7 +47,7 @@ class SecurityLogsRepositoryTest {
 
         authenticationsDao.saveUser(
             UserDB(
-                123,
+                "123",
                 "Rhy",
                 "123-123",
                 "1234"
@@ -64,12 +64,12 @@ class SecurityLogsRepositoryTest {
     @Test
     fun getCheckInLogs() = runBlocking {
         authenticationsDao.saveUser(
-            UserDB(123, "Rhy", "1234-1234", "1234")
+            UserDB("123", "Rhy", "1234-1234", "1234")
         )
         for(r in 1..2) {
             checkInLogsDao.saveCheckInLog(
                 CheckInLogDB(0,
-                    123,
+                    "123",
                     "Feb 12, 2022 - 11:00 AM",
                     "Feb 12, 2022 - 11:00 AM",
                     "This is a description of log"
@@ -102,7 +102,7 @@ class SecurityLogsRepositoryTest {
                 false,
                 "Feb 12, 2022 - 11:00 AM",
                 "Feb 12, 2022 - 11:00 AM",
-                123
+                "123"
             )
         )
         patrolLocationsDao.savePatrolLocations(
@@ -122,7 +122,7 @@ class SecurityLogsRepositoryTest {
             )
         )
 
-        val routePlan = securityLogsRepository.getPatrolRoutePlan(123)
+        val routePlan = securityLogsRepository.getPatrolRoutePlan("123")
 
         assertEquals(2, routePlan.id)
         assertEquals(1, routePlan.locations.size)
@@ -133,7 +133,7 @@ class SecurityLogsRepositoryTest {
     @Test(expected = NoDataException::class)
     fun throwNoDataExceptionWhenNoActiveRoutePlan() = runBlocking {
 
-        securityLogsRepository.getPatrolRoutePlan(123)
+        securityLogsRepository.getPatrolRoutePlan("123")
 
         Unit
     }
@@ -157,7 +157,7 @@ class SecurityLogsRepositoryTest {
                 false,
                 "Feb 12, 2022 - 11:00 AM",
                 "Feb 12, 2022 - 11:00 AM",
-                123
+                "123"
             )
         )
         patrolLocationsDao.savePatrolLocations(
@@ -183,7 +183,7 @@ class SecurityLogsRepositoryTest {
             )
         )
 
-        val routePlan = routePlansDao.getRoutePlanWithPatrolLocations(123)
+        val routePlan = routePlansDao.getRoutePlanWithPatrolLocations("123")
 
         assertEquals(".",
             routePlan?.patrolLocations?.find { it.id == 5 }?.sorting)
@@ -195,7 +195,7 @@ class SecurityLogsRepositoryTest {
 
         securityLogsRepository.saveRoutePlan(
             RoutePlanRequests.Create(
-                234,
+                "123",
                 areaLocations.map {
                     PatrolLocation(
                         0,
@@ -212,7 +212,7 @@ class SecurityLogsRepositoryTest {
             )
         )
 
-        val routePlan = routePlansDao.getRoutePlanWithPatrolLocations(234)
+        val routePlan = routePlansDao.getRoutePlanWithPatrolLocations("123")
         assertEquals(8, routePlan?.patrolLocations?.size)
         assert(routePlan?.patrolLocations?.find {
             it.name == "Xavier Hall"
@@ -228,7 +228,7 @@ class SecurityLogsRepositoryTest {
                 false,
                 "",
                 "",
-                123
+                "123"
             )
         )
 
@@ -239,7 +239,7 @@ class SecurityLogsRepositoryTest {
             )
         )
 
-        val routePlan = routePlansDao.getRoutePlanByUserId(123)
+        val routePlan = routePlansDao.getRoutePlanByUserId("123")
 
         assertEquals("Feb 12, 2022 - 11:00 AM", routePlan?.startTime)
         assertEquals(false, routePlan?.isDone)
@@ -264,7 +264,7 @@ class SecurityLogsRepositoryTest {
                 false,
                 "Feb 12, 2022 - 11:00 AM",
                 "",
-                123
+                "123"
             )
         )
 
@@ -300,7 +300,7 @@ class SecurityLogsRepositoryTest {
                 false,
                 "Feb 12, 2022 - 11:00 AM",
                 "Feb 12, 2022 - 11:00 AM",
-                123
+                "123"
             )
         )
         patrolLocationsDao.savePatrolLocations(
@@ -362,7 +362,7 @@ class SecurityLogsRepositoryTest {
             )
         )
 
-        val routePlan = routePlansDao.getRoutePlanWithPatrolLocations(123)
+        val routePlan = routePlansDao.getRoutePlanWithPatrolLocations("123")
         assertEquals(".", routePlan?.patrolLocations?.find { it.id == 4 }?.sorting)
         assertEquals("..", routePlan?.patrolLocations?.find { it.id == 5 }?.sorting)
     }
@@ -376,7 +376,7 @@ class SecurityLogsRepositoryTest {
                 false,
                 "Feb 12, 2022 - 11:00 AM",
                 "Feb 12, 2022 - 11:00 AM",
-                123
+                "123"
             )
         )
         patrolLocationsDao.savePatrolLocations(
@@ -447,7 +447,7 @@ class SecurityLogsRepositoryTest {
 
         securityLogsRepository.saveCheckInLog(
             CheckInRequest(
-                123,
+                "123",
                 "Feb 12, 2022 - 11:00 AM",
                 "Feb 12, 2022 - 11:00 AM",
                 "This is the description"
@@ -456,7 +456,7 @@ class SecurityLogsRepositoryTest {
 
         val checkInLogDB = checkInLogsDao.getAllCheckInLogs()[0].checkInLog
 
-        assertEquals(123, checkInLogDB.userId)
+        assertEquals("123", checkInLogDB.userId)
         assertEquals("Feb 12, 2022 - 11:00 AM", checkInLogDB.startTime)
         assertEquals("Feb 12, 2022 - 11:00 AM", checkInLogDB.endTime)
         assertEquals("This is the description", checkInLogDB.description)

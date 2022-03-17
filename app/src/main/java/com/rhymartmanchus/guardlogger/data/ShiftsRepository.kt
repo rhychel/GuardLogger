@@ -1,6 +1,7 @@
 package com.rhymartmanchus.guardlogger.data
 
 import android.content.SharedPreferences
+import com.google.firebase.auth.FirebaseAuth
 import com.rhymartmanchus.guardlogger.data.db.AuthenticationsDao
 import com.rhymartmanchus.guardlogger.data.db.models.UserDB
 import com.rhymartmanchus.guardlogger.domain.ShiftsGateway
@@ -8,17 +9,21 @@ import com.rhymartmanchus.guardlogger.domain.exceptions.EmployeeAlreadyRegistere
 import com.rhymartmanchus.guardlogger.domain.exceptions.EmployeeNotRegisteredException
 import com.rhymartmanchus.guardlogger.domain.exceptions.NoDataException
 import com.rhymartmanchus.guardlogger.domain.models.Session
+import kotlinx.coroutines.tasks.await
+import java.util.*
 import javax.inject.Inject
 
 class ShiftsRepository @Inject constructor(
     private val authenticationsDao: AuthenticationsDao,
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val firebaseAuth: FirebaseAuth
 ) : ShiftsGateway {
 
     override suspend fun getCurrentSession(): Session {
-        val userId = sharedPreferences.getInt("USER_ID", -1)
-        if(userId == -1) {
-            throw NoDataException()
+        val userId = sharedPreferences.getString("USER_ID", "")
+            ?: throw IllegalStateException("USER_ID is empty")
+        if(userId.isEmpty()) {
+            throw IllegalStateException("USER_ID is empty")
         }
         val name = sharedPreferences.getString("NAME", "")
             ?: throw IllegalStateException("NAME is empty")
@@ -30,12 +35,16 @@ class ShiftsRepository @Inject constructor(
         )
     }
 
-    override suspend fun login(employeeId: String, pin: String): Session {
-        val user = authenticationsDao.authenticate(employeeId, pin)
-            ?: throw EmployeeNotRegisteredException()
+    override suspend fun login(email: String, password: String): Session {
+        val user = try {
+            firebaseAuth.signInWithEmailAndPassword(email, password).await()
+                .user!!
+        } catch (e: Exception) {
+            throw EmployeeNotRegisteredException(e)
+        }
         return Session(
-            user.id,
-            user.name
+            user.uid,
+            user.displayName ?: "Name not available"
         )
     }
 
@@ -44,7 +53,7 @@ class ShiftsRepository @Inject constructor(
         if(user == null) {
             authenticationsDao.saveUser(
                 UserDB(
-                    0,
+                    UUID.randomUUID().toString(),
                     name, employeeId, pin
                 )
             )
@@ -56,7 +65,7 @@ class ShiftsRepository @Inject constructor(
     override suspend fun saveSession(session: Session) {
         sharedPreferences.edit()
             .putString("NAME", session.name)
-            .putInt("USER_ID", session.userId)
+            .putString("USER_ID", session.userId)
             .commit()
     }
 

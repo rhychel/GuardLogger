@@ -19,7 +19,7 @@ import java.util.concurrent.Executors
         RoutePlanDB::class,
         UserDB::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true
 )
 abstract class GuardLoggerDatabase : RoomDatabase() {

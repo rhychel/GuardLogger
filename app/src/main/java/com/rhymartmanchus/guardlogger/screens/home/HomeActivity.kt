@@ -108,7 +108,9 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, FlexibleAdapter.OnI
         }
         fusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY, CancellationTokenSource().token)
             .addOnSuccessListener {
-                presenter.onCurrentLocationGathered(it)
+                it?.let {
+                    presenter.onCurrentLocationGathered(it)
+                }
             }
     }
 

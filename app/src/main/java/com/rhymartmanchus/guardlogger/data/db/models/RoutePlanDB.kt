@@ -25,5 +25,5 @@ data class RoutePlanDB (
     val endTime: String,
 
     @ColumnInfo(name = "userId")
-    val userId: Int
+    val userId: String
 )

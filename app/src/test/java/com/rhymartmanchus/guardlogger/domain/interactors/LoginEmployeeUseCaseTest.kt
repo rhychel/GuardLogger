@@ -26,12 +26,12 @@ class LoginEmployeeUseCaseTest {
     }
 
     @Test
-    fun `should be able to login user using employee id and pin`() = runBlocking {
+    fun `should be able to login user using email and password`() = runBlocking {
         val session = mockk<Session>()
         coEvery { gateway.login(any(), any()) } returns session
         coEvery { gateway.saveSession(any()) } returns Unit
 
-        val result = useCase.execute(LoginEmployeeUseCase.Params("1234", "4321"))
+        val result = useCase.execute(LoginEmployeeUseCase.Params("email@domain.com", "thisismylongpassword"))
 
         val credsCaptor = mutableListOf<String>()
         coVerifySequence {
@@ -39,12 +39,12 @@ class LoginEmployeeUseCaseTest {
             gateway.saveSession(session)
         }
         assertEquals(session, result.session)
-        assertEquals("1234", credsCaptor.first())
-        assertEquals("4321", credsCaptor.last())
+        assertEquals("email@domain.com", credsCaptor.first())
+        assertEquals("thisismylongpassword", credsCaptor.last())
     }
 
     @Test
-    fun `should throw an exception when employee id is empty`() = runBlocking {
+    fun `should throw an exception when email is empty`() = runBlocking {
         try {
             useCase.execute(
                 LoginEmployeeUseCase.Params("", "4321")
@@ -52,7 +52,7 @@ class LoginEmployeeUseCaseTest {
             fail("Use case succeeded")
         } catch (e: Exception) {
             if(e is IllegalArgumentException) {
-                if(e.message != "Employee ID cannot be empty") {
+                if(e.message != "Email cannot be empty") {
                     fail("Exception message is incorrect")
                 } else {
                     assert(true)
@@ -64,15 +64,35 @@ class LoginEmployeeUseCaseTest {
     }
 
     @Test
-    fun `should throw an exception when pin is empty`() = runBlocking {
+    fun `should throw an exception when email is not valid value`() = runBlocking {
         try {
             useCase.execute(
-                LoginEmployeeUseCase.Params("1234", "")
+                LoginEmployeeUseCase.Params("email@com", "4321")
             )
             fail("Use case succeeded")
         } catch (e: Exception) {
             if(e is IllegalArgumentException) {
-                if(e.message != "PIN cannot be empty") {
+                if(e.message != "Email is invalid") {
+                    fail("Exception message is incorrect")
+                } else {
+                    assert(true)
+                }
+            } else {
+                fail("Exception is not IllegalArgumentException")
+            }
+        }
+    }
+
+    @Test
+    fun `should throw an exception when password is empty`() = runBlocking {
+        try {
+            useCase.execute(
+                LoginEmployeeUseCase.Params("email@domain.com", "")
+            )
+            fail("Use case succeeded")
+        } catch (e: Exception) {
+            if(e is IllegalArgumentException) {
+                if(e.message != "Password cannot be empty") {
                     fail("Exception message is incorrect")
                 } else {
                     assert(true)
@@ -89,7 +109,7 @@ class LoginEmployeeUseCaseTest {
         } throws EmployeeNotRegisteredException()
 
         useCase.execute(
-            LoginEmployeeUseCase.Params("1234", "4321")
+            LoginEmployeeUseCase.Params("email@domain.com", "4321")
         )
 
         Unit

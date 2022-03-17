@@ -15,7 +15,7 @@ sealed interface RoutePlanRequests {
     ) : RoutePlanRequests
 
     data class Create(
-        val userId: Int,
+        val userId: String,
         val patrolLocations: List<PatrolLocation>
     ) : RoutePlanRequests
 
